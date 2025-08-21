@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 
 const productSchema = new Schema(
   {
-    name: {
+    nameProduct: {
       type: String,
       required: true,
     },
@@ -14,8 +14,17 @@ const productSchema = new Schema(
     category: {
       type: String,
     },
+    // chưa làm tới
+    // category: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "Category",
+    //   required: true,
+    // },
     size: {
-      type: Number,
+      type: String,
+    },
+    color: {
+      type: String,
     },
     price: {
       type: Number,
@@ -32,4 +41,5 @@ const productSchema = new Schema(
 );
 
 const Product = mongoose.model("Product", productSchema);
+
 export default Product;
