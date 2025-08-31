@@ -11,10 +11,9 @@ const port = process.env.PORT || 3000;
 // khởi tạo ứng dụng Express
 const app = express();
 
-app.use(express.json());
-// sử dụng body-parser để phân tích dữ liệu JSON trong request body
-app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(bodyParser.json());
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
+
 // sử dụng cors để cho phép tất cả các nguồn gốc truy cập vào API
 app.use(cors());
 
@@ -40,7 +39,8 @@ app.use(`${api}/`, router);
 // console.log("Compare result:", isValid);
 
 // ============================================
-
+console.log("JWT_EXPIRES_IN:", process.env.JWT_EXPIRES_IN);
+console.log("JWT_EXPIRES_IN:", process.env.JWT_SECRET_KEY);
 app.listen(port, () => {
   console.log(`http://localhost:${port}/`);
 });

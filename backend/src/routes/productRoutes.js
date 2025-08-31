@@ -5,8 +5,9 @@ import {
   deleteProduct,
   getAllProducts,
   getProductById,
-} from "../controllers/productController.js";
-import protect from "../middlewares/verifytoken.js";
+} from "../controllers/ProductController.js";
+import protect from "../middlewares/verifyToken.js";
+import { upload } from "../middlewares/uploadImage.js";
 
 const router = express.Router();
 
@@ -20,7 +21,7 @@ router.get("/:id", getProductById);
 
 // tạo sản phẩm mới
 // POST api/v1/products/
-router.post("/", protect, createProduct);
+router.post("/", protect, upload.array("images", 5), createProduct);
 
 // PUT api/v1/products/:id
 router.put("/:id", protect, updateProduct);
@@ -28,4 +29,5 @@ router.put("/:id", protect, updateProduct);
 // DELETE api/v1/products/:id
 router.delete("/:id", protect, deleteProduct);
 
+// router.post("/upload/product");
 export default router;

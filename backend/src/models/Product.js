@@ -29,9 +29,17 @@ const productSchema = new Schema(
     price: {
       type: Number,
     },
-    imageUrl: {
-      type: String,
-    },
+
+    images: [
+      {
+        // các tham số của clouddinary
+        publicId: { type: String, required: true },
+        url: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
     countInStock: {
       type: Number,
       default: 0,
