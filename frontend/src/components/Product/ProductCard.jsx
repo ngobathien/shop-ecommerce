@@ -12,11 +12,12 @@ function ProductCard() {
           <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={product._id}>
             <div className="card h-100 shadow-sm">
               <img
-                src={product.imageUrl}
+                src={product.images?.[0]?.url || "/placeholder.png"}
                 className="card-img-top"
                 alt={product.nameProduct}
                 style={{ objectFit: "cover", height: "200px" }}
               />
+
               <div className="card-body d-flex flex-column">
                 <h5 className="card-title fw-bold">{product.nameProduct}</h5>
                 <p className="card-text text-truncate">{product.description}</p>
