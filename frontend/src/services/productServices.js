@@ -17,9 +17,12 @@ export const getProductById = async (id) => {
 // admin
 export const createProduct = async (productData) => {
   const token = localStorage.getItem("token");
+
+  // const config = { header: { "Content-Type": "application/json" } };
   const res = await axios.post(`${api}/products`, productData, {
     headers: {
       Authorization: `Bearer ${token}`,
+      "Content-Type": "multipart/form-data",
     },
   });
   return res.data;
@@ -30,6 +33,7 @@ export const updateProduct = async (id, updatedProduct) => {
   const res = await axios.put(`${api}/products/${id}`, updatedProduct, {
     headers: {
       Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
     },
   });
   return res.data;

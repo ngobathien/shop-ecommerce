@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Product from "../models/Product.js";
+import { uploadToCloudinary } from "../config/cloudinary.js";
 
 // lấy tất cả sản phẩm
 // GET api/v1/products/getAllProduct
@@ -31,6 +32,9 @@ export const getProductById = async (req, res) => {
 export const createProduct = async (req, res) => {
   try {
     console.log("req.body:", req.body);
+    console.log("req.files:", req.files);
+
+    // nhận dữ liệu từ client gửi lên
     const {
       nameProduct,
       description,
@@ -38,9 +42,33 @@ export const createProduct = async (req, res) => {
       size,
       color,
       price,
-      imageUrl,
       countInStock,
     } = req.body;
+
+    const files = req.files;
+
+    // kiểm tra có ảnh hay không
+    if (!files || files.length === 0) {
+      return res.status(400).json({ message: "Phải có ít nhất 1 ảnh" });
+    }
+
+    // kiểm tra nếu chỉ cho phép tối đa 5 ảnh
+    if (files.length > 5) {
+      return res.status(400).json({ message: "Phải có ít nhất 1 ảnh" });
+    }
+
+    // Upload tất cả ảnh lên Cloudinary
+    const uploadImages = [];
+    for (let file of files) {
+      const base64 = `data:${file.mimetype};base64,${file.buffer.toString(
+        "base64"
+      )}`;
+      const result = await uploadToCloudinary(base64, "products");
+      uploadImages.push({
+        url: result.url,
+        publicId: result.publicId,
+      });
+    }
 
     // Kiểm tra xem tên sản phẩm có hay không
     if (!nameProduct) {
@@ -54,7 +82,7 @@ export const createProduct = async (req, res) => {
       size,
       color,
       price,
-      imageUrl,
+      images: uploadImages, // lưu link cloudinary, không lưu base64
       countInStock,
     };
 
@@ -85,7 +113,7 @@ export const updateProduct = async (req, res) => {
       size,
       color,
       price,
-      imageUrl,
+      images,
       countInStock,
     } = req.body;
 
@@ -106,7 +134,7 @@ export const updateProduct = async (req, res) => {
       size,
       color,
       price,
-      imageUrl,
+      images,
       countInStock,
     };
 

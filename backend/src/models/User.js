@@ -16,6 +16,12 @@ const userSchema = new Schema(
       required: [true, "Username is required"],
       unique: true,
     },
+    // image: {
+    //   publicId: { type: String },
+    //   url: {
+    //     type: String,
+    //   },
+    // },
     email: {
       type: String,
       required: true,

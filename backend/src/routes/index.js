@@ -2,6 +2,7 @@ import { Router } from "express";
 import productRoutes from "./productRoutes.js";
 import authorRoutes from "./authRoutes.js";
 import userRoutes from "./userRoutes.js";
+
 const router = Router();
 
 // api/v1/auth

@@ -9,6 +9,7 @@ function ProductTable({ products, onDelete, onEdit }) {
           <tr>
             <th scope="col">#</th>
             <th scope="col">Tên sản phẩm</th>
+            <th scope="col">Hình ảnh</th>
             <th scope="col">Danh mục</th>
             <th scope="col">Giá</th>
             <th scope="col">Tồn kho </th>
@@ -24,6 +25,23 @@ function ProductTable({ products, onDelete, onEdit }) {
                 <tr key={product._id}>
                   <th scope="">{index + 1}</th>
                   <td>{product.nameProduct}</td>
+                  <td
+                    className="p-2"
+                    style={{ textAlign: "center", verticalAlign: "middle" }}
+                  >
+                    <img
+                      src={product.images?.[0]?.url || "/placeholder.png"}
+                      alt={product.nameProduct}
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                        objectFit: "cover",
+                        borderRadius: "8px",
+                        boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
+                      }}
+                    />
+                  </td>
+
                   <td>{product.category}</td>
                   <td>{product.price}</td>
                   <td>{product.countInStock}</td>

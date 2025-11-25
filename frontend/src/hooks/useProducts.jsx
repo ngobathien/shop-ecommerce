@@ -28,6 +28,7 @@ export default function useProducts() {
       console.error("Lỗi khi lấy sản phẩm:", err);
     }
   };
+
   const handleCreateProduct = async (newProduct) => {
     try {
       await apiCreateProduct(newProduct);
